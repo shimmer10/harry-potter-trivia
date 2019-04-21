@@ -1,0 +1,28 @@
+/***********************************************
+ * @author Jennifer Grace
+ * UNHBootCamp
+ * CSS for Harry Potter Trivia Game
+ ***********************************************/
+
+ body {
+    background-image: url("../images/mainBackground.png");
+    background-repeat: no-repeat;
+    background-size: auto;}
+#banner {
+    background-image: url("../images/harryPotterBanner.png");
+    background-size: cover;
+    border-bottom: 4px solid goldenrod;
+    border-right: 4px solid goldenrod;
+    border-left: 4px solid goldenrod;
+    height: 220px !important;
+}
+#question {
+    color: black !important;
+    opacity: 1 !important;
+}
+#question-answer-space {
+    background-image: url("../images/maraudersMap.jpg");
+    resize: vertical;
+    height: 420px;
+    opacity: .4;
+}
