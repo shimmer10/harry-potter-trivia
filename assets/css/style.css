@@ -12,14 +12,18 @@
 button {
     position:relative;
     top:40%; 
-    left:42%;
+    left:22%;
     background: goldenrod !important;
 }
-/* h1, ol {
+h1, h2, ol {
     color: black !important;
     opacity: 1 !important;
     font-weight: bold;
-} */
+}
+.appear {
+    height: 50px;
+    width: 100%;
+}
 #banner {
     background-image: url("../images/harryPotterBanner.png");
     margin-left: 20px;
@@ -28,10 +32,14 @@ button {
     height: 240px !important;
 }
 #timer {
-    background-image: url("../images/maraudersMap.jpg");
+    background-image: url("../images/maraudersMap.png");
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    opacity: .7;
 }
 #question-answer-space {
-    background-image: url("../images/maraudersMap.jpg");
+    background-image: url("../images/maraudersMap.png");
     background-repeat: no-repeat;
     background-size: cover;
     resize: vertical;

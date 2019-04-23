@@ -13,22 +13,25 @@ $(document).ready(function () {
         "answerTwo": "Gryffindor",
         "answerThree": "Ravenclaw",
         "answerFour": "Slytherin",
-        "correctAnswer": "Gryffindor"
+        "correctAnswer": "answer-two",
+        "correctAnswerMessage": "Harry was placed in Gryffindor!",
+        "image": "https://media.giphy.com/media/Tl2AK8HOHj7SU/giphy.gif"
     }
 
     // jQuery variables
 
     var questionAnswerSpaceDiv = $("#question-answer-space");
     var startDiv = $("#start-button");
+    var timerDiv = $("#timer");
 
     // variables and arrays
     var questionsArray = [questionOne];
-    // var currentQuestion;
+    var currentQuestion;
     var firstAnswer;
     var secondAnswer;
     var thirdAnswer;
     var fourthAnswer;
-    // var correctAnswer;
+    var chosenAnswer;
     var time = 15;
 
     //  This code will run as soon as the page loads.
@@ -36,30 +39,29 @@ $(document).ready(function () {
         startDiv.on("click", startGame);
     };
 
-
     // start game 
     function startGame() {
         // clear start button out of div
         questionAnswerSpaceDiv.empty();
 
-        var intervalId = setInterval(count, 1000)
+        // set timer attributes on start
+        timerDiv.html("<h2>Time Left: 00:15</h2>");
+        timerDiv.addClass("appear");
+        //build question
         buildQuestions(questionsArray);
-        setTimeout(function () {
-            timeUp(intervalId);
-        }, 15000);
-    }
 
+    }
 
     // build questions
     function buildQuestions(questionsArray) {
         $.each(questionsArray, function () {
-            var thisQuestion = this;
-            question = thisQuestion.question;
-            firstAnswer = thisQuestion.answerOne;
-            secondAnswer = thisQuestion.answerTwo;
-            thirdAnswer = thisQuestion.answerThree;
-            fourthAnswer = thisQuestion.answerFour;
-            thisCorrectAsnwer = thisQuestion.correctAnswer;
+            currentQuestion = this;
+            question = currentQuestion.question;
+            firstAnswer = currentQuestion.answerOne;
+            secondAnswer = currentQuestion.answerTwo;
+            thirdAnswer = currentQuestion.answerThree;
+            fourthAnswer = currentQuestion.answerFour;
+            correctAsnwer = currentQuestion.correctAnswer;
             questionSpaceDiv = $("<div>", { class: "question-space" });
             var questionDiv = $("<h1>", { id: "question", text: question });
             var answersDiv = $("<ol>");
@@ -77,19 +79,68 @@ $(document).ready(function () {
             answersDiv.append(answerFourDiv);
             answerSpaceDiv.append(answersDiv);
             questionAnswerSpaceDiv.append(answerSpaceDiv);
+
+            var intervalId = setInterval(count, 1000)
+            // set a timeout
+            setTimeout(function () {
+                timeUp(intervalId, currentQuestion);
+            }, 15000);
+
+            $(document).on('click', '#answer-one', function () {
+                chosenAnswer = "answer-one";
+                checkAnswer(chosenAnswer, currentQuestion);
+            });
+            $(document).on('click', '#answer-two', function () {
+                chosenAnswer = "answer-two";
+                checkAnswer(chosenAnswer, currentQuestion)
+            });
+            $(document).on('click', '#answer-three', function () {
+                chosenAnswer = "answer-three";
+                checkAnswer(chosenAnswer, currentQuestion);
+            });
+            $(document).on('click', '#answer-four', function () {
+                chosenAnswer = "answer-four";
+                checkAnswer(chosenAnswer, currentQuestion);
+            });
         })
     }
 
+    // display if the answer was correct or wrong
+    function checkAnswer(chosenAnswer, currentQuestion) {
+        if (chosenAnswer === currentQuestion.correctAnswer) {
+            questionSpaceDiv.html("<h1>That is Correct! " + currentQuestion.correctAnswerMessage + "</h1>")
+        }
+        else {
+            questionSpaceDiv.html("<h1>Wrong! " + currentQuestion.correctAnswerMessage + "</h1>")
+        }
+        console.log(currentQuestion.image);
+        var imageDiv = $("<img>", { src: currentQuestion.image });
+        answerSpaceDiv.empty();
+        answerSpaceDiv.append(imageDiv);
+    }
+
+    // time is up
+    function timeUp(intervalId, currentQuestion) {
+        timerDiv.html("<h2>Time Left: 00:00</h2>");
+        clearInterval(intervalId);
+        questionSpaceDiv.html("<h1>Time's Up! " + currentQuestion.correctAnswerMessage + "</h1>");
+        answerSpaceDiv.empty();
+        var pictureDiv = $("<img>", { src: currentQuestion.image });
+        answerSpaceDiv.append(pictureDiv);
+    }
+
+    // count down functionality
     function count() {
 
         time--
 
         currentTime = timeConverter(time);
-        var timerDiv = $("<div>", { id: "timer", html: "Time Left: " + currentTime });
+        timerDiv.html("<h2>Time Left: " + currentTime + "</h2>");
         $("#timer-col").html(timerDiv);
     }
 
 
+    // convert time
     function timeConverter(t) {
 
         var minutes = Math.floor(t / 60);
@@ -108,11 +159,5 @@ $(document).ready(function () {
         }
 
         return minutes + ":" + seconds;
-    }
-
-    function timeUp(intervalId) {
-        $("#timer-col").empty();
-        clearInterval(intervalId);
-        questionAnswerSpaceDiv.html("<h2>Time's Up</h2>");
     }
 })
