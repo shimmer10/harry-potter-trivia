@@ -88,18 +88,22 @@ $(document).ready(function () {
 
             $(document).on('click', '#answer-one', function () {
                 chosenAnswer = "answer-one";
+                stopTimer(intervalId);
                 checkAnswer(chosenAnswer, currentQuestion);
             });
             $(document).on('click', '#answer-two', function () {
                 chosenAnswer = "answer-two";
+                stopTimer(intervalId);
                 checkAnswer(chosenAnswer, currentQuestion)
             });
             $(document).on('click', '#answer-three', function () {
                 chosenAnswer = "answer-three";
+                stopTimer(intervalId);
                 checkAnswer(chosenAnswer, currentQuestion);
             });
             $(document).on('click', '#answer-four', function () {
                 chosenAnswer = "answer-four";
+                stopTimer(intervalId);
                 checkAnswer(chosenAnswer, currentQuestion);
             });
         })
@@ -113,7 +117,6 @@ $(document).ready(function () {
         else {
             questionSpaceDiv.html("<h1>Wrong! " + currentQuestion.correctAnswerMessage + "</h1>")
         }
-        console.log(currentQuestion.image);
         var imageDiv = $("<img>", { src: currentQuestion.image });
         answerSpaceDiv.empty();
         answerSpaceDiv.append(imageDiv);
@@ -127,6 +130,13 @@ $(document).ready(function () {
         answerSpaceDiv.empty();
         var pictureDiv = $("<img>", { src: currentQuestion.image });
         answerSpaceDiv.append(pictureDiv);
+    }
+
+    // stop the timer when they choose an answer
+    function stopTimer(intervalId) {
+            clearInterval(intervalId);
+            answerTime = timeConverter(time);
+            timerDiv.html("<h2>Time Left: " + answerTime + "</h2>");
     }
 
     // count down functionality
