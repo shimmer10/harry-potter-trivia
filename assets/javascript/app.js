@@ -63,6 +63,7 @@ $(document).ready(function () {
     var seconds;
     var t;
     var nextCount = false;
+    var lastQuestionCount = false;
     var correct = 0;
     var wrong = 0;
 
@@ -182,9 +183,18 @@ $(document).ready(function () {
         }
         else {
             // results
-            questionDiv.html("<h1> Correct Answers: " + correct);
-            questionDiv.append("<h1> Wrong Answers: " + wrong);
-            answersDiv.empty();
+            lastQuestionCount = true;
+            time = 5;
+            intervalId = setInterval(count, 1000)
+            timerDiv.html("<h2>Mischeif Managed</h2>");
+            setTimeout(function () {
+                questionDiv.html("<h1> Correct Answers: " + correct);
+                questionDiv.append("<h1> Wrong Answers: " + wrong);
+                answersDiv.empty();
+                clearInterval(intervalId);
+            }, 5000);
+
+
         }
 
     }
@@ -225,13 +235,16 @@ $(document).ready(function () {
         time--
 
         currentTime = timeConverter(time);
-        if (!nextCount) {
+        if (lastQuestionCount) {
+            timerDiv.html("<h2>Mischeif Managed</h2>");
+        }
+        else if (!nextCount) {
             timerDiv.html("<h2>Time Left: " + currentTime + "</h2>");
         }
-        else {
+        else if(nextCount) {
             timerDiv.html("<h2>Next Question: " + currentTime + "</h2>");
-
         }
+
         $("#timer-col").html(timerDiv);
     }
 
