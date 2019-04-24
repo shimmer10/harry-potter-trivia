@@ -44,12 +44,11 @@ $(document).ready(function () {
     var answerThreeDiv;
     var answerFourDiv;
 
+    var buttonDiv;
     var imageDiv;
     var pictureDiv;
 
     // variables and arrays
-    // var questionsArray = [questionOne, questionTwo];
-    console.log("questionsArray length: " + questionsArray.questions.length)
     var numberOfQuestions = questionsArray.questions.length;
     var currentQuestion = 0;
     var intervalId;
@@ -72,6 +71,7 @@ $(document).ready(function () {
         startDiv.on("click", startGame);
     };
 
+    // setup answer button functionality
     $(document).on('click', '#answer-one', function () {
         chosenAnswer = "answer-one";
         checkAnswer(intervalId, t, chosenAnswer, questionsArray);
@@ -87,6 +87,19 @@ $(document).ready(function () {
     $(document).on('click', '#answer-four', function () {
         chosenAnswer = "answer-four";
         checkAnswer(intervalId, t, chosenAnswer, questionsArray);
+    });
+
+    // set up reset button functionality
+    $(document).on('click', '#reset', function () {
+        currentQuestion = 0;
+        nextCount = false;
+        lastQuestionCount = false;
+        correct = 0;
+        wrong = 0;
+        stopTimer(intervalId);
+        clearInterval(intervalId);
+        clearTimeout(t);
+        startGame();
     });
 
     // start game 
@@ -178,7 +191,6 @@ $(document).ready(function () {
                 clearTimeout(t);
                 clearInterval(intervalId);
                 nextCount = false;
-
             }, 5000);
         }
         else {
@@ -192,6 +204,8 @@ $(document).ready(function () {
                 questionDiv.append("<h1> Wrong Answers: " + wrong);
                 answersDiv.empty();
                 clearInterval(intervalId);
+                buttonDiv = $("<button>", { id: "reset", class: "btn btn-lg", text: "RESET" })
+                answersDiv.append(buttonDiv);
             }, 5000);
 
 
@@ -247,16 +261,6 @@ $(document).ready(function () {
 
         $("#timer-col").html(timerDiv);
     }
-
-    // function nextQuestionCount() {
-    //     nextQuestionTime--
-
-    //     currentTime = timeConverter(nextQuestionTime);
-    //     console.log("nextQuestionCount");
-    //     timerDiv.html("<h2>Next Question: " + currentTime + "</h2>");
-    //     $("#timer-col").html(timerDiv);
-    // }
-
 
     // convert time
     function timeConverter(t) {

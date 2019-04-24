@@ -31,6 +31,10 @@ h1, h2, ol {
     border: 4px solid goldenrod;
     height: 240px !important;
 }
+#reset {
+    top: 50%;
+    left: 38%;
+}
 #timer {
     background-image: url("../images/maraudersMap.png");
     font-size: 30px;
