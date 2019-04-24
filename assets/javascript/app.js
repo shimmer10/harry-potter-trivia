@@ -7,25 +7,29 @@
 
 $(document).ready(function () {
 
-    var questionOne = {
-        "question": "What house at Hogwarts does Harry belong to?",
-        "answerOne": "Hufflepuff",
-        "answerTwo": "Gryffindor",
-        "answerThree": "Ravenclaw",
-        "answerFour": "Slytherin",
-        "correctAnswer": "answer-two",
-        "correctAnswerMessage": "Harry was placed in Gryffindor!",
-        "image": "https://media.giphy.com/media/Tl2AK8HOHj7SU/giphy.gif"
-    }
-    var questionTwo = {
-        "question": "Who is fluffy?",
-        "answerOne": "Hermione's cat",
-        "answerTwo": "Harry's owl",
-        "answerThree": "A three-headed dog",
-        "answerFour": "A giant spider",
-        "correctAnswer": "answer-three",
-        "correctAnswerMessage": "Fluffy is a three-headed dog!",
-        "image": "https://media1.tenor.com/images/1ff9e3ab280f3fcd04718f9b630f8546/tenor.gif?itemid=12912138"
+    var questionsArray = {
+        questions: [
+            questionOne = {
+                "question": "What house at Hogwarts does Harry belong to?",
+                "answerOne": "Hufflepuff",
+                "answerTwo": "Gryffindor",
+                "answerThree": "Ravenclaw",
+                "answerFour": "Slytherin",
+                "correctAnswer": "answer-two",
+                "correctAnswerMessage": "Harry was placed in Gryffindor!",
+                "image": "https://media.giphy.com/media/Tl2AK8HOHj7SU/giphy.gif"
+            },
+            questionTwo = {
+                "question": "Who is fluffy?",
+                "answerOne": "Hermione's cat",
+                "answerTwo": "Harry's owl",
+                "answerThree": "A three-headed dog",
+                "answerFour": "A giant spider",
+                "correctAnswer": "answer-three",
+                "correctAnswerMessage": "Fluffy is a three-headed dog!",
+                "image": "https://media1.tenor.com/images/1ff9e3ab280f3fcd04718f9b630f8546/tenor.gif?itemid=12912138"
+            }
+        ]
     }
 
     // jQuery variables
@@ -44,8 +48,9 @@ $(document).ready(function () {
     var pictureDiv;
 
     // variables and arrays
-    var questionsArray = [questionOne, questionTwo];
-    var numberOfQuestions = questionsArray.length;
+    // var questionsArray = [questionOne, questionTwo];
+    console.log("questionsArray length: " + questionsArray.questions.length)
+    var numberOfQuestions = questionsArray.questions.length;
     var currentQuestion = 0;
     var intervalId;
     var firstAnswer;
@@ -56,11 +61,32 @@ $(document).ready(function () {
     var time = 15;
     var minutes;
     var seconds;
+    var t;
+    var nextCount = false;
+    var correct = 0;
+    var wrong = 0;
 
     //  This code will run as soon as the page loads.
     window.onload = function () {
         startDiv.on("click", startGame);
     };
+
+    $(document).on('click', '#answer-one', function () {
+        chosenAnswer = "answer-one";
+        checkAnswer(intervalId, t, chosenAnswer, questionsArray);
+    });
+    $(document).on('click', '#answer-two', function () {
+        chosenAnswer = "answer-two";
+        checkAnswer(intervalId, t, chosenAnswer, questionsArray);
+    });
+    $(document).on('click', '#answer-three', function () {
+        chosenAnswer = "answer-three";
+        checkAnswer(intervalId, t, chosenAnswer, questionsArray);
+    });
+    $(document).on('click', '#answer-four', function () {
+        chosenAnswer = "answer-four";
+        checkAnswer(intervalId, t, chosenAnswer, questionsArray);
+    });
 
     // start game 
     function startGame() {
@@ -72,7 +98,7 @@ $(document).ready(function () {
         timerDiv.addClass("appear");
 
         //build question
-        buildQuestions(questionsArray[currentQuestion]);
+        buildQuestions(questionsArray.questions[currentQuestion]);
     }
 
     // build questions
@@ -107,77 +133,83 @@ $(document).ready(function () {
 
         intervalId = setInterval(count, 1000)
         // set a timeout
-        setTimeout(function () {
+        t = setTimeout(function () {
             timeUp(intervalId, thisQuestion);
         }, 15000);
-
-        $(document).on('click', '#answer-one', function () {
-            chosenAnswer = "answer-one";
-            stopTimer(intervalId);
-            checkAnswer(chosenAnswer, thisQuestion);
-            next(questionsArray);
-        });
-        $(document).on('click', '#answer-two', function () {
-            chosenAnswer = "answer-two";
-            stopTimer(intervalId);
-            checkAnswer(chosenAnswer, thisQuestion);
-            next(questionsArray);
-        });
-        $(document).on('click', '#answer-three', function () {
-            chosenAnswer = "answer-three";
-            stopTimer(intervalId);
-            checkAnswer(chosenAnswer, thisQuestion);
-            next(questionsArray);
-        });
-        $(document).on('click', '#answer-four', function () {
-            chosenAnswer = "answer-four";
-            stopTimer(intervalId);
-            checkAnswer(chosenAnswer, thisQuestion);
-            next(questionsArray);
-        });
     }
 
     // display if the answer was correct or wrong
-    function checkAnswer(chosenAnswer, question) {
-        console.log("chosenAnswer" + chosenAnswer);
-        console.log("correctAnswer" + question.correctAnswer);
-        if (chosenAnswer === question.correctAnswer) {
-            questionDiv.html("<h1>That is Correct! " + question.correctAnswerMessage + "</h1>")
+    function checkAnswer(intervalId, t, chosenAnswer, question) {
+        stopTimer(intervalId);
+        clearTimeout(t);
+
+        var answer = questionsArray.questions[currentQuestion].correctAnswer;
+        var correctMessage = questionsArray.questions[currentQuestion].correctAnswerMessage;
+        var image = questionsArray.questions[currentQuestion].image;
+        if (chosenAnswer === answer) {
+            questionDiv.html("<h1>That is Correct! " + correctMessage + "</h1>")
+            correct++;
         }
         else {
-            questionDiv.html("<h1>Wrong! " + question.correctAnswerMessage + "</h1>")
+            questionDiv.html("<h1>Wrong! " + correctMessage + "</h1>")
+            wrong++;
         }
-        imageDiv = $("<img>", { src: question.image });
+        imageDiv = $("<img>", { src: image });
         answersDiv.empty();
         answersDiv.append(imageDiv);
+        chosenAnswer = "";
+
+        // increment currentQuestion
+        currentQuestion++;
+
+        // determine if there is another question to build
+
+        console.log("currentQuestion: " + currentQuestion);
+        console.log("numberOfQuestions: " + numberOfQuestions);
+        if (currentQuestion < numberOfQuestions) {
+            nextCount = true;
+            time = 5;
+            intervalId = setInterval(count, 1000)
+            // set transition time for next question
+            timerDiv.html("<h2>Next Question: 00:05</h2>");
+            setTimeout(function () {
+                next(questionsArray)
+                clearTimeout(t);
+                clearInterval(intervalId);
+                nextCount = false;
+
+            }, 5000);
+        }
+        else {
+            // results
+            questionDiv.html("<h1> Correct Answers: " + correct);
+            questionDiv.append("<h1> Wrong Answers: " + wrong);
+            answersDiv.empty();
+        }
+
     }
 
     function next(questionsArray) {
-        time = 15;
         timerDiv.html("<h2>Time Left: 00:15</h2>");
+        time = 15;
         questionDiv.fadeOut();
         answersDiv.fadeOut();
-        //increment the current question by one
-        currentQuestion++;
 
-        //if there are no more questions do stuff
-        if (currentQuestion < numberOfQuestions) {
-            //otherwise show the next question
-            buildQuestions(questionsArray[currentQuestion]);
-        } else {
-            // results
-            console.log("in here");
-        }
+        buildQuestions(questionsArray.questions[currentQuestion]);
     }
 
     // time is up
     function timeUp(intervalId, question) {
+        questionDiv.empty();
+        answersDiv.empty();
         timerDiv.html("<h2>Time Left: 00:00</h2>");
         clearInterval(intervalId);
         questionDiv.html("<h1>Time's Up! " + question.correctAnswerMessage + "</h1>");
         answersDiv.empty();
         pictureDiv = $("<img>", { src: question.image });
         answersDiv.append(pictureDiv);
+        currentQuestion++;
+        next(questionsArray);
     }
 
     // stop the timer when they choose an answer
@@ -193,9 +225,24 @@ $(document).ready(function () {
         time--
 
         currentTime = timeConverter(time);
-        timerDiv.html("<h2>Time Left: " + currentTime + "</h2>");
+        if (!nextCount) {
+            timerDiv.html("<h2>Time Left: " + currentTime + "</h2>");
+        }
+        else {
+            timerDiv.html("<h2>Next Question: " + currentTime + "</h2>");
+
+        }
         $("#timer-col").html(timerDiv);
     }
+
+    // function nextQuestionCount() {
+    //     nextQuestionTime--
+
+    //     currentTime = timeConverter(nextQuestionTime);
+    //     console.log("nextQuestionCount");
+    //     timerDiv.html("<h2>Next Question: " + currentTime + "</h2>");
+    //     $("#timer-col").html(timerDiv);
+    // }
 
 
     // convert time
