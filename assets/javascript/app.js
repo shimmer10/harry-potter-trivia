@@ -21,13 +21,23 @@ $(document).ready(function () {
             },
             questionTwo = {
                 "question": "Who is fluffy?",
-                "answerOne": "Hermione's cat",
+                "answerOne": "A giant spider",
                 "answerTwo": "Harry's owl",
                 "answerThree": "A three-headed dog",
-                "answerFour": "A giant spider",
+                "answerFour": "Hermione's cat",
                 "correctAnswer": "answer-three",
                 "correctAnswerMessage": "Fluffy is a three-headed dog!",
                 "image": "https://media1.tenor.com/images/1ff9e3ab280f3fcd04718f9b630f8546/tenor.gif?itemid=12912138"
+            },
+            questionThree = {
+                "question": "Who poses as Mad-Eye Moddy, Harry's 4th year Defense Against the Dark Arts professor?",
+                "answerOne": "Voldemort",
+                "answerTwo": "Siruius Black",
+                "answerThree": "Peter Pettigrew",
+                "answerFour": "Barty Crouch Jr.",
+                "correctAnswer": "answer-four",
+                "correctAnswerMessage": "Barty Crouch Jr did!",
+                "image": "https://thumbs.gfycat.com/InfamousPepperyDassie-size_restricted.gif"
             }
         ]
     }
@@ -65,8 +75,9 @@ $(document).ready(function () {
     var lastQuestionCount = false;
     var correct = 0;
     var wrong = 0;
+    var unanswered = 0;
 
-    //  This code will run as soon as the page loads.
+    //  This code will run as soon as the page loads
     window.onload = function () {
         startDiv.on("click", startGame);
     };
@@ -91,15 +102,7 @@ $(document).ready(function () {
 
     // set up reset button functionality
     $(document).on('click', '#reset', function () {
-        currentQuestion = 0;
-        nextCount = false;
-        lastQuestionCount = false;
-        correct = 0;
-        wrong = 0;
-        stopTimer(intervalId);
-        clearInterval(intervalId);
-        clearTimeout(t);
-        startGame();
+        reset();
     });
 
     // start game 
@@ -117,6 +120,7 @@ $(document).ready(function () {
 
     // build questions
     function buildQuestions(thisQuestion) {
+        time = 15;
 
         question = thisQuestion.question;
         firstAnswer = thisQuestion.answerOne;
@@ -145,6 +149,7 @@ $(document).ready(function () {
         questionAnswerSpaceDiv.append(answersDiv);
 
 
+        // debugger;
         intervalId = setInterval(count, 1000)
         // set a timeout
         t = setTimeout(function () {
@@ -153,7 +158,7 @@ $(document).ready(function () {
     }
 
     // display if the answer was correct or wrong
-    function checkAnswer(intervalId, t, chosenAnswer, question) {
+    function checkAnswer(intervalId, t, chosenAnswer) {
         stopTimer(intervalId);
         clearTimeout(t);
 
@@ -177,53 +182,63 @@ $(document).ready(function () {
         currentQuestion++;
 
         // determine if there is another question to build
-
-        console.log("currentQuestion: " + currentQuestion);
-        console.log("numberOfQuestions: " + numberOfQuestions);
         if (currentQuestion < numberOfQuestions) {
             nextCount = true;
             time = 5;
             intervalId = setInterval(count, 1000)
             // set transition time for next question
             timerDiv.html("<h2>Next Question: 00:05</h2>");
-            setTimeout(function () {
-                next(questionsArray)
+            t = setTimeout(function () {
+                nextQuestion(questionsArray)
                 clearTimeout(t);
                 clearInterval(intervalId);
                 nextCount = false;
             }, 5000);
         }
         else {
-            // results
+            // clearTimeout(t);
             lastQuestionCount = true;
             time = 5;
             intervalId = setInterval(count, 1000)
             timerDiv.html("<h2>Mischeif Managed</h2>");
-            setTimeout(function () {
-                questionDiv.html("<h1> Correct Answers: " + correct);
-                questionDiv.append("<h1> Wrong Answers: " + wrong);
+            t = setTimeout(function () {
+                questionDiv.html("<h1> Correct Answers: " + correct + "</h1>"
+                    + "<h1> Wrong Answers: " + wrong + "</h1>"
+                    + "<h1> Unanswered: " + unanswered + "</h1>");
                 answersDiv.empty();
                 clearInterval(intervalId);
                 buttonDiv = $("<button>", { id: "reset", class: "btn btn-lg", text: "RESET" })
                 answersDiv.append(buttonDiv);
             }, 5000);
-
-
         }
-
     }
 
-    function next(questionsArray) {
+    // next question
+    function nextQuestion(questionsArray) {
+        questionDiv.empty();
+        answersDiv.empty();
         timerDiv.html("<h2>Time Left: 00:15</h2>");
         time = 15;
-        questionDiv.fadeOut();
-        answersDiv.fadeOut();
-
         buildQuestions(questionsArray.questions[currentQuestion]);
+    }
+
+    // reset
+    function reset() {
+        currentQuestion = 0;
+        nextCount = false;
+        lastQuestionCount = false;
+        correct = 0;
+        wrong = 0;
+        time = 15;
+        stopTimer(intervalId);
+        clearInterval(intervalId);
+        clearTimeout(t);
+        startGame();
     }
 
     // time is up
     function timeUp(intervalId, question) {
+        unanswered++;
         questionDiv.empty();
         answersDiv.empty();
         timerDiv.html("<h2>Time Left: 00:00</h2>");
@@ -232,12 +247,45 @@ $(document).ready(function () {
         answersDiv.empty();
         pictureDiv = $("<img>", { src: question.image });
         answersDiv.append(pictureDiv);
+
+        // increment currentQuestion
         currentQuestion++;
-        next(questionsArray);
+
+        // determine if there is another question to build
+        if (currentQuestion < numberOfQuestions) {
+            nextCount = true;
+            time = 5;
+            intervalId = setInterval(count, 1000)
+            // set transition time for next question
+            timerDiv.html("<h2>Next Question: 00:05</h2>");
+            t = setTimeout(function () {
+                nextQuestion(questionsArray)
+                clearTimeout(t);
+                clearInterval(intervalId);
+                nextCount = false;
+            }, 5000);
+        }
+        else {
+            // clearTimeout(t);
+            lastQuestionCount = true;
+            time = 5;
+            intervalId = setInterval(count, 1000)
+            timerDiv.html("<h2>Mischeif Managed</h2>");
+            t = setTimeout(function () {
+                questionDiv.html("<h1> Correct Answers: " + correct + "</h1>"
+                    + "<h1> Wrong Answers: " + wrong + "</h1>"
+                    + "<h1> Unanswered: " + unanswered + "</h1>");
+                answersDiv.empty();
+                clearInterval(intervalId);
+                buttonDiv = $("<button>", { id: "reset", class: "btn btn-lg", text: "RESET" })
+                answersDiv.append(buttonDiv);
+            }, 5000);
+        }
     }
 
     // stop the timer when they choose an answer
     function stopTimer(intervalId) {
+        clearTimeout(t);
         clearInterval(intervalId);
         answerTime = timeConverter(time);
         timerDiv.html("<h2>Time Left: " + answerTime + "</h2>");
@@ -255,7 +303,7 @@ $(document).ready(function () {
         else if (!nextCount) {
             timerDiv.html("<h2>Time Left: " + currentTime + "</h2>");
         }
-        else if(nextCount) {
+        else if (nextCount) {
             timerDiv.html("<h2>Next Question: " + currentTime + "</h2>");
         }
 
