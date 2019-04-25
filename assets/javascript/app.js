@@ -38,6 +38,16 @@ $(document).ready(function () {
                 "correctAnswer": "answer-four",
                 "correctAnswerMessage": "Barty Crouch Jr did!",
                 "image": "https://thumbs.gfycat.com/InfamousPepperyDassie-size_restricted.gif"
+            },
+            questionGour = {
+                "question": "How did Hermione take extra lessons her third year?",
+                "answerOne": "The Time-Turner",
+                "answerTwo": "Weekend Classes",
+                "answerThree": "The Pensieve",
+                "answerFour": "She made a clone.",
+                "correctAnswer": "answer-one",
+                "correctAnswerMessage": "Barty Crouch Jr did!",
+                "image": "https://thumbs.gfycat.com/InfamousPepperyDassie-size_restricted.gif"
             }
         ]
     }
@@ -266,7 +276,7 @@ $(document).ready(function () {
             }, 5000);
         }
         else {
-            // clearTimeout(t);
+            clearTimeout(t);
             lastQuestionCount = true;
             time = 5;
             intervalId = setInterval(count, 1000)
