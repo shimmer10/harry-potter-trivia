@@ -39,21 +39,70 @@ $(document).ready(function () {
                 "correctAnswerMessage": "Barty Crouch Jr did!",
                 "image": "https://thumbs.gfycat.com/InfamousPepperyDassie-size_restricted.gif"
             },
-            questionGour = {
+            questionFour = {
                 "question": "How did Hermione take extra lessons her third year?",
                 "answerOne": "The Time-Turner",
                 "answerTwo": "Weekend Classes",
                 "answerThree": "The Pensieve",
-                "answerFour": "She made a clone.",
+                "answerFour": "She made a clone",
                 "correctAnswer": "answer-one",
-                "correctAnswerMessage": "Barty Crouch Jr did!",
-                "image": "https://thumbs.gfycat.com/InfamousPepperyDassie-size_restricted.gif"
+                "correctAnswerMessage": "The Time-Turner!",
+                "image": "https://66.media.tumblr.com/b049d2cca1c7207aa669c425603fac84/tumblr_ogjlazpzHs1rnx2kbo1_400.gif"
+            },
+            questionFive = {
+                "question": "Who caused Harry many problems while trying to \"help\" him in his second year at Hogwarts?",
+                "answerOne": "Gilderoy Lockhart",
+                "answerTwo": "Severus Snape",
+                "answerThree": "Dobby the House Elf",
+                "answerFour": "Ron Weasley",
+                "correctAnswer": "answer-three",
+                "correctAnswerMessage": "Dobby the House Elf did!",
+                "image": "https://media.giphy.com/media/53fbxZjD18mTC/giphy.gif"
+            },
+            questionSix = {
+                "question": "Which is not a method of transport for wizards?",
+                "answerOne": "Aparecium",
+                "answerTwo": "Apparition",
+                "answerThree": "A Portkey",
+                "answerFour": "Floo Powder",
+                "correctAnswer": "answer-one",
+                "correctAnswerMessage": "Aparecium is a revealing charm!",
+                "image": "https://www.linternaute.com/homme/images/buzz/130912/harry-potter-colo.gif"
+            },
+            questionSeven = {
+                "question": "Who was the Seeker for the Bulgarian Team that played in the Quidditch World Cup against the Irish?",
+                "answerOne": "Viktor Krum",
+                "answerTwo": "Igor Karkaroff",
+                "answerThree": "Ivan Vulchanov",
+                "answerFour": "Cedric Diggory",
+                "correctAnswer": "answer-one",
+                "correctAnswerMessage": "It was Viktor Krum!",
+                "image": "https://66.media.tumblr.com/fc5c3a2d36ccb35fb19dc2f60390c25a/tumblr_nvnrg8r1hn1thu2vbo1_500.gif"
+            },
+            questionNine = {
+                "question": "What is a thestral?",
+                "answerOne": "A half giant",
+                "answerTwo": "A pixie",
+                "answerThree": "A dragon",
+                "answerFour": "An invisible winged horse",
+                "correctAnswer": "answer-four",
+                "correctAnswerMessage": "A thestral is an invisible winged horse!",
+                "image": "https://i.imgur.com/N9I4omF.gif?noredirect"
+            },
+            questionTen = {
+                "question": "What makes a person feel better after seeing a Dementor?",
+                "answerOne": "A Nap",
+                "answerTwo": "Chocolate",
+                "answerThree": "Chicken Soup",
+                "answerFour": "Treacle Pudding",
+                "correctAnswer": "answer-two",
+                "correctAnswerMessage": "Chocolate makes you feel better after a Demntor attack!",
+                "image": "https://abcfapps.blob.core.windows.net/funday/2016/277/d3896ce5-0ff6-4bea-8af5-6ee6740eb550.gif"
             }
         ]
     }
 
     // jQuery variables
-
     var questionAnswerSpaceDiv = $("#question-answer-space");
     var startDiv = $("#start-button");
     var timerDiv = $("#timer");
@@ -72,12 +121,8 @@ $(document).ready(function () {
     var numberOfQuestions = questionsArray.questions.length;
     var currentQuestion = 0;
     var intervalId;
-    var firstAnswer;
-    var secondAnswer;
-    var thirdAnswer;
-    var fourthAnswer;
     var chosenAnswer;
-    var time = 15;
+    var time;
     var minutes;
     var seconds;
     var t;
@@ -120,7 +165,7 @@ $(document).ready(function () {
         // clear start button out of div
         questionAnswerSpaceDiv.empty();
 
-        // set timer attributes on start
+        // // set timer attributes on start
         timerDiv.html("<h2>Time Left: 00:15</h2>");
         timerDiv.addClass("appear");
 
@@ -133,29 +178,22 @@ $(document).ready(function () {
         time = 15;
 
         question = thisQuestion.question;
-        firstAnswer = thisQuestion.answerOne;
-        secondAnswer = thisQuestion.answerTwo;
-        thirdAnswer = thisQuestion.answerThree;
-        fourthAnswer = thisQuestion.answerFour;
-        correctAnswer = thisQuestion.correctAnswer;
 
-        answerOneDiv = $("<li>", { id: "answer-one", text: firstAnswer })
-        answerTwoDiv = $("<li>", { id: "answer-two", text: secondAnswer })
-        answerThreeDiv = $("<li>", { id: "answer-three", text: thirdAnswer })
-        answerFourDiv = $("<li>", { id: "answer-four", text: fourthAnswer })
+        answerOneDiv = $("<li>", { id: "answer-one", text: thisQuestion.answerOne })
+        answerTwoDiv = $("<li>", { id: "answer-two", text: thisQuestion.answerTwo })
+        answerThreeDiv = $("<li>", { id: "answer-three", text: thisQuestion.answerThree })
+        answerFourDiv = $("<li>", { id: "answer-four", text: thisQuestion.answerTwo })
 
         questionDiv = $("<h1>", { class: "question-space" });
         answersDiv = $("<ol>");
 
-        questionDiv.hide();
-        answersDiv.hide();
 
-        questionDiv.html(question).fadeIn();
+        questionDiv.html(question);
+        answersDiv.append(answerOneDiv);
+        answersDiv.append(answerTwoDiv);
+        answersDiv.append(answerThreeDiv);
+        answersDiv.append(answerFourDiv);
         questionAnswerSpaceDiv.append(questionDiv);
-        answersDiv.append(answerOneDiv).fadeIn();
-        answersDiv.append(answerTwoDiv).fadeIn();
-        answersDiv.append(answerThreeDiv).fadeIn();
-        answersDiv.append(answerFourDiv).fadeIn();
         questionAnswerSpaceDiv.append(answersDiv);
 
 
