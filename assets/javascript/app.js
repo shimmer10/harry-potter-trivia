@@ -246,7 +246,7 @@ $(document).ready(function () {
                     + "<h1> Unanswered: " + unanswered + "</h1>");
                 answersDiv.empty();
                 clearInterval(nextIntervalId);
-                buttonDiv = $("<button>", { id: "reset", class: "btn btn-lg", text: "RESET" })
+                buttonDiv = $("<button>", { id: "reset", class: "btn btn-lg", text: "PLAY AGAIN" })
                 answersDiv.append(buttonDiv);
             }, 5000);
         }
