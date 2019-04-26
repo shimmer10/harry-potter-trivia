@@ -172,7 +172,7 @@ $(document).ready(function () {
         answerOneDiv = $("<li>", { class: "answers", id: "answer-one", text: thisQuestion.answerOne })
         answerTwoDiv = $("<li>", { class: "answers", id: "answer-two", text: thisQuestion.answerTwo })
         answerThreeDiv = $("<li>", { class: "answers", id: "answer-three", text: thisQuestion.answerThree })
-        answerFourDiv = $("<li>", { class: "answers", id: "answer-four", text: thisQuestion.answerTwo })
+        answerFourDiv = $("<li>", { class: "answers", id: "answer-four", text: thisQuestion.answerFour })
 
         questionDiv = $("<h1>", { class: "question-space" });
         answersDiv = $("<ol>");
