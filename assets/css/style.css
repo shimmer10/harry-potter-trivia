@@ -5,20 +5,28 @@
  ***********************************************/
 
  body {
-    background-image: url("../images/mainBackground.jpg");
+    background-image: url("../images/town.png");
     background-repeat: no-repeat;
     background-size: auto;
 }
 button {
     position:relative;
-    top:40%; 
-    left:22%;
+    top:50%; 
+    left:25%;
     background: goldenrod !important;
 }
-h1, h2, ol {
-    color: black !important;
-    opacity: 1 !important;
-    font-weight: bold;
+h1, h2, ol, p {
+    font-weight: bold; 
+    font-family: 'Crete Round', serif;
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+p {
+    font-family: 'Playball', cursive !important;
 }
 .appear {
     height: 50px;
@@ -26,7 +34,6 @@ h1, h2, ol {
 }
 #banner {
     background-image: url("../images/harryPotterBanner.png");
-    margin-left: 20px;
     background-size: cover;
     border: 4px solid goldenrod;
     height: 240px !important;
@@ -36,17 +43,16 @@ h1, h2, ol {
     left: 38%;
 }
 #timer {
-    background-image: url("../images/maraudersMap.png");
+    background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.3)), url("../images/maraudersMap.png");
     font-size: 30px;
     font-weight: bold;
     text-align: center;
-    opacity: .7;
 }
 #question-answer-space {
-    background-image: url("../images/maraudersMap.png");
+    background-image: linear-gradient(rgba(255,255,255,.3), rgba(255,255,255,.3)), url("../images/maraudersMap.png");
     background-repeat: no-repeat;
     background-size: cover;
-    resize: vertical;
+    padding-top: 30px;
+    resize: horizontal;
     height: 420px;
-    opacity: .7;
 }

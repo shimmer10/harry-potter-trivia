@@ -105,6 +105,7 @@ $(document).ready(function () {
     // jQuery variables
     var questionAnswerSpaceDiv = $("#question-answer-space");
     var startDiv = $("#start-button");
+    var timerColumn = $("#timer-col");
     var timerDiv = $("#timer");
     var questionDiv;
     var answersDiv;
@@ -112,25 +113,24 @@ $(document).ready(function () {
     var answerTwoDiv;
     var answerThreeDiv;
     var answerFourDiv;
-
     var buttonDiv;
     var imageDiv;
     var pictureDiv;
 
     // variables and arrays
     var numberOfQuestions = questionsArray.questions.length;
+    var lastQuestion = false;
+    var nextCount = false;
     var currentQuestion = 0;
-    var intervalId;
+    var correct = 0;
+    var unanswered = 0;
+    var wrong = 0;
     var chosenAnswer;
+    var intervalId;
+    var timer;
     var time;
     var minutes;
     var seconds;
-    var timer;
-    var nextCount = false;
-    var lastQuestionCount = false;
-    var correct = 0;
-    var wrong = 0;
-    var unanswered = 0;
 
     //  This code will run as soon as the page loads
     window.onload = function () {
@@ -157,7 +157,7 @@ $(document).ready(function () {
 
         // // set timer on start
         timerDiv.html("<h2>Time Left: 00:15</h2>")
-        .addClass("appear");
+        .addClass("appear btn btn-light");
 
         //build question
         buildQuestions(questionsArray.questions[currentQuestion]);
@@ -169,13 +169,13 @@ $(document).ready(function () {
 
         question = thisQuestion.question;
 
-        answerOneDiv = $("<li>", { class: "answers", id: "answer-one", text: thisQuestion.answerOne })
-        answerTwoDiv = $("<li>", { class: "answers", id: "answer-two", text: thisQuestion.answerTwo })
-        answerThreeDiv = $("<li>", { class: "answers", id: "answer-three", text: thisQuestion.answerThree })
-        answerFourDiv = $("<li>", { class: "answers", id: "answer-four", text: thisQuestion.answerFour })
+        answerOneDiv = $("<h2>", { class: "answers", id: "answer-one", text: "1. " + thisQuestion.answerOne })
+        answerTwoDiv = $("<h2>", { class: "answers", id: "answer-two", text: "2. " + thisQuestion.answerTwo })
+        answerThreeDiv = $("<h2>", { class: "answers", id: "answer-three", text: "3. " + thisQuestion.answerThree })
+        answerFourDiv = $("<h2>", { class: "answers", id: "answer-four", text: "4. " + thisQuestion.answerFour })
 
         questionDiv = $("<h1>", { class: "question-space" });
-        answersDiv = $("<ol>");
+        answersDiv = $("<div>");
 
 
         questionDiv.html(question);
@@ -214,7 +214,6 @@ $(document).ready(function () {
         imageDiv = $("<img>", { src: image });
         answersDiv.empty();
         answersDiv.append(imageDiv);
-        chosenAnswer = "";
 
         determineNextAction(intervalId);
     }
@@ -230,7 +229,6 @@ $(document).ready(function () {
         if (currentQuestion < numberOfQuestions) {
             nextCount = true;
             intervalId = setInterval(count, 1000)
-            // set transition time for next question
             timerDiv.html("<h2>Next Question: 00:05</h2>");
             timer = setTimeout(function () {
                 nextQuestion(questionsArray)
@@ -239,9 +237,9 @@ $(document).ready(function () {
             }, 5000);
         }
         else {
-            lastQuestionCount = true;
             nextIntervalId = setInterval(count, 1000)
-            timerDiv.html("<h2>Mischeif Managed</h2>");
+            timerDiv.html("<p>Mischief Managed</p>");
+            lastQuestion = true;
             setTimeout(function () {
                 questionDiv.html("<h1> Correct Answers: " + correct + "</h1>"
                     + "<h1> Wrong Answers: " + wrong + "</h1>"
@@ -259,7 +257,6 @@ $(document).ready(function () {
         questionDiv.empty();
         answersDiv.empty();
         timerDiv.html("<h2>Time Left: 00:15</h2>");
-        time = 15;
         buildQuestions(questionsArray.questions[currentQuestion]);
     }
 
@@ -267,12 +264,9 @@ $(document).ready(function () {
     function reset() {
         currentQuestion = 0;
         nextCount = false;
-        lastQuestionCount = false;
         correct = 0;
         wrong = 0;
         unanswered = 0;
-        time = 15;
-        stopTimer(intervalId);
         clearInterval(intervalId);
         startGame();
     }
@@ -282,9 +276,8 @@ $(document).ready(function () {
         unanswered++;
         questionDiv.empty();
         answersDiv.empty();
-        timerDiv.html("<h2>Time Left: 00:00</h2>");
         clearInterval(intervalId);
-        questionDiv.html("<h1>Time's Up! " + question.correctAnswerMessage + "</h1>");
+        questionDiv.html("<h1>Time's Up! " + question.correctAnswerMessage + "</h1>" );
         answersDiv.empty();
         pictureDiv = $("<img>", { src: question.image });
         answersDiv.append(pictureDiv);
@@ -298,8 +291,9 @@ $(document).ready(function () {
         time--
 
         currentTime = timeConverter(time);
-        if (lastQuestionCount) {
-            timerDiv.html("<h2>Mischeif Managed</h2>");
+        if (lastQuestion){
+            timerDiv.html("<p>Mischief  Managed</p>");
+
         }
         else if (!nextCount) {
             timerDiv.html("<h2>Time Left: " + currentTime + "</h2>");
@@ -308,26 +302,7 @@ $(document).ready(function () {
             timerDiv.html("<h2>Next Question: " + currentTime + "</h2>");
         }
 
-        $("#timer-col").html(timerDiv);
-    }
-
-    // count down functionality
-    function nextTimeCount() {
-
-        nextTime--
-
-        transitionTime = timeConverter(nextTime);
-        if (lastQuestionCount) {
-            timerDiv.html("<h2>Mischeif Managed</h2>");
-        }
-        else if (!nextCount) {
-            timerDiv.html("<h2>Time Left: " + transitionTime + "</h2>");
-        }
-        else if (nextCount) {
-            timerDiv.html("<h2>Next Question: " + transitionTime + "</h2>");
-        }
-
-        $("#timer-col").html(timerDiv);
+        timerColumn.html(timerDiv);
     }
 
     // convert time
