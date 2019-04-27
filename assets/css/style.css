@@ -28,6 +28,9 @@ img {
 p {
     font-family: 'Playball', cursive !important;
 }
+.answers {
+    cursor: pointer;
+}
 .appear {
     height: 50px;
     width: 100%;
