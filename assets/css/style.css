@@ -32,6 +32,9 @@ p {
     height: 50px;
     width: 100%;
 }
+.question-space {
+    text-align: center;
+}
 #banner {
     background-image: url("../images/harryPotterBanner.png");
     background-size: cover;

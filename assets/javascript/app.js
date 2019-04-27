@@ -264,11 +264,11 @@ $(document).ready(function () {
 
         questionDiv.empty();
         if (chosenAnswer === answer) {
-            questionDiv.html("<h1>That is Correct! " + correctMessage + "</h1>")
+            questionDiv.html("<h1>That is Correct! <br>" + correctMessage + "</h1>")
             correct++;
         }
         else {
-            questionDiv.html("<h1>Wrong! " + correctMessage + "</h1>")
+            questionDiv.html("<h1>Wrong! <br>" + correctMessage + "</h1>")
             wrong++;
         }
         imageDiv = $("<img>", { src: image });
@@ -298,7 +298,7 @@ $(document).ready(function () {
         }
         else {
             nextIntervalId = setInterval(count, 1000)
-            timerDiv.html("<p>Mischief Managed</p>");
+            timerDiv.html("<p>Mischief    Managed</p>");
             lastQuestion = true;
             setTimeout(function () {
                 questionDiv.html("<h1> Correct Answers: " + correct + "</h1>"
@@ -352,7 +352,7 @@ $(document).ready(function () {
 
         currentTime = timeConverter(time);
         if (lastQuestion){
-            timerDiv.html("<p>Mischief  Managed</p>");
+            timerDiv.html("<p>Mischief   Managed</p>");
 
         }
         else if (!nextCount) {
