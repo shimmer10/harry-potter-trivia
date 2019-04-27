@@ -324,6 +324,7 @@ $(document).ready(function () {
     function reset() {
         currentQuestion = 0;
         nextCount = false;
+        lastQuestion = false;
         correct = 0;
         wrong = 0;
         unanswered = 0;
