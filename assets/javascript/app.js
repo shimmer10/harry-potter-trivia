@@ -21,10 +21,10 @@ $(document).ready(function () {
             },
             questionTwo = {
                 "question": "Who is fluffy?",
-                "answerOne": "A giant spider",
-                "answerTwo": "Harry's owl",
-                "answerThree": "A three-headed dog",
-                "answerFour": "Hermione's cat",
+                "answerOne": "A Giant Spider",
+                "answerTwo": "Harry's Owl",
+                "answerThree": "A Three-Headed Dog",
+                "answerFour": "Hermione's Cat",
                 "correctAnswer": "answer-three",
                 "correctAnswerMessage": "Fluffy is a three-headed dog!",
                 "image": "https://media1.tenor.com/images/1ff9e3ab280f3fcd04718f9b630f8546/tenor.gif?itemid=12912138"
@@ -44,7 +44,7 @@ $(document).ready(function () {
                 "answerOne": "The Time-Turner",
                 "answerTwo": "Weekend Classes",
                 "answerThree": "The Pensieve",
-                "answerFour": "She made a clone",
+                "answerFour": "She Made a Clone",
                 "correctAnswer": "answer-one",
                 "correctAnswerMessage": "The Time-Turner!",
                 "image": "https://66.media.tumblr.com/b049d2cca1c7207aa669c425603fac84/tumblr_ogjlazpzHs1rnx2kbo1_400.gif"
@@ -81,10 +81,10 @@ $(document).ready(function () {
             },
             questionEight = {
                 "question": "What is a thestral?",
-                "answerOne": "A half giant",
-                "answerTwo": "A pixie",
-                "answerThree": "A dragon",
-                "answerFour": "An invisible winged horse",
+                "answerOne": "A Half Giant",
+                "answerTwo": "A Pixie",
+                "answerThree": "A Dragon",
+                "answerFour": "An Invisible Winged Horse",
                 "correctAnswer": "answer-four",
                 "correctAnswerMessage": "A thestral is an invisible winged horse!",
                 "image": "https://i.imgur.com/N9I4omF.gif?noredirect"
@@ -98,6 +98,66 @@ $(document).ready(function () {
                 "correctAnswer": "answer-two",
                 "correctAnswerMessage": "Chocolate makes you feel better after a Demntor attack!",
                 "image": "https://abcfapps.blob.core.windows.net/funday/2016/277/d3896ce5-0ff6-4bea-8af5-6ee6740eb550.gif"
+            },
+            questionTen = {
+                "question": "When Dumbledore and Harry first visit Horace Slughorn, what is Horace disguised as?",
+                "answerOne": "A Lampshade",
+                "answerTwo": "A Table",
+                "answerThree": "An Armchair",
+                "answerFour": "A Boat",
+                "correctAnswer": "answer-three",
+                "correctAnswerMessage": "Horace was disguised as an armchair!",
+                "image": "https://i.gifer.com/8ZHl.gif"
+            },
+            questionEleven = {
+                "question": "Which of the following is not one of Voldemort's horcruxes?",
+                "answerOne": "The Sword of Gryffindor",
+                "answerTwo": "Nagini",
+                "answerThree": "Tom Riddle's Diary",
+                "answerFour": "Helga Hufflepuff's Cup",
+                "correctAnswer": "answer-one",
+                "correctAnswerMessage": "The Sword of Gryffindor was not a horcrux!",
+                "image": "https://media3.giphy.com/media/6HAvZnZJXpOG4/giphy.gif"
+            },
+            questionTwelve = {
+                "question": "Who is the Half-Blood Prince?",
+                "answerOne": "Tom Riddle",
+                "answerTwo": "Lucius Malfoy",
+                "answerThree": "Severus Snape",
+                "answerFour": "Eileen Prince",
+                "correctAnswer": "answer-three",
+                "correctAnswerMessage": "Severus Snape was the Half-Blood Prince!",
+                "image": "https://media2.giphy.com/media/7wRxeRCPGqMZa/giphy.gif"
+            },
+            questionThirteen = {
+                "question": "What position does Harry play on his Quidditch team?",
+                "answerOne": "Bludger",
+                "answerTwo": "Chaser",
+                "answerThree": "Seeker",
+                "answerFour": "Keeper",
+                "correctAnswer": "answer-three",
+                "correctAnswerMessage": "Harry is a Seeker!",
+                "image": "https://media.giphy.com/media/DDOvL9Aq3ip32/giphy.gif"
+            },
+            questionFourteen = {
+                "question": "What does the Imperius Curse do?",
+                "answerOne": "Controls",
+                "answerTwo": "Kills",
+                "answerThree": "Tortures",
+                "answerFour": "Tickles",
+                "correctAnswer": "answer-one",
+                "correctAnswerMessage": "It controls!",
+                "image": "https://media1.giphy.com/media/ZlxH3WiLzEs00/giphy.gif"
+            },
+            questionFifteen = {
+                "question": "How does Harry catch his first snitch?",
+                "answerOne": "In His Hands",
+                "answerTwo": "With His Shoe",
+                "answerThree": "With His Mind",
+                "answerFour": "In His Mouth",
+                "correctAnswer": "answer-four",
+                "correctAnswerMessage": "He caught it in his mouth!",
+                "image": "https://thumbs.gfycat.com/ImpeccableSharpChanticleer-size_restricted.gif"
             }
         ]
     }
