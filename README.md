@@ -3,6 +3,7 @@
 ![Harry Potter Trivia Game](./assets/images/harryPotterBanner.png)
 
 ## **This game is designed to be a Harry Potter Trivia Game**
+## *https://shimmer10.github.io/TriviaGame/*
 
 ### **It begins with the user clicking "I solemnly swear that I am up to no good"**
      * This will disappear and display the first question
